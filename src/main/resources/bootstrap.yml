@@ -1,0 +1,22 @@
+server:
+  port: 8787
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1111/eureka/
+
+# 路由规则：path代表路径，然后路由到serviceId子服务中 如：http://localhost:8787/api-app/app/get
+# 访问的是 user-service 的app/get路径
+zuul:
+  routes:
+    api-web:
+      path: /api-web/**
+      serviceId: consumer
+
+    api-app:
+      path: /api-app/**
+      serviceId: user-service
